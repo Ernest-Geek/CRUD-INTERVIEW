@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token
-from models.db import get_db_connection
-from utils.security import hash_password, check_password
+from usermanagementapi.models.db import get_db_connection
+from usermanagementapi.utils.security import hash_password, check_password
 
 auth_routes = Blueprint("auth_routes", __name__)
 
@@ -20,7 +20,7 @@ def register():
         if cursor.fetchone():
             return jsonify({"error": "Email already exist"}), 400
         
-        cursor.execute("INSERT INTO users (name, email, password) VALUES (%s %s %s)"
+        cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)",
                        (name, email, password))
         db.commit()
         return jsonify({"message": "User registered Succesfully"}), 201
@@ -49,9 +49,9 @@ def login():
     return jsonify({"error": "Invalid credentials"}), 401
 
 # Get all users
-@auth_routes.routes('/users', methods=['GET'])
+@auth_routes.route('/users', methods=['GET'])
 def get_users():
-    db = get_db_connection
+    db = get_db_connection()
     cursor = db.cursor(dictionary=True)
     cursor.execute("SELECT id, name, email, role, created_at FROM users")
     users = cursor.fetchall()
@@ -59,18 +59,18 @@ def get_users():
     return jsonify(users), 200
 
 # Get user by ID
-@auth_routes.routes('/users/<int:user_id>', methods=['GET'])
-def get_users(user_id):
-    db = get_db_connection
+@auth_routes.route('/users/<int:user_id>', methods=['GET'])
+def fetch_users(user_id):
+    db = get_db_connection()
     cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT id, name, email, role, created_at FROM users WHERE id =%s", (user_id))
+    cursor.execute("SELECT id, name, email, role, created_at FROM users WHERE id =%s", (user_id,))
     user = cursor.fetchone()
     db.close()
     if user:
-        return jsonify(user), 500
+        return jsonify(user), 200
     return jsonify({"error": "user not found"}), 404
 
-@auth_routes.routes('/users/<int:user_id>', methods=['GET'])
+@auth_routes.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     data = request.json
     name = data.get("name")

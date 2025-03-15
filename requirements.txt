@@ -19,3 +19,7 @@ pytz==2025.1
 six==1.17.0
 tzdata==2025.1
 Werkzeug==3.1.3
+
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MTkyMTY3MCwianRpIjoiM2EwZWMwYjEtZDQzMS00NmIxLThiZDctOWZmN2FlYTZmZmVjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MSwicm9sZSI6InVzZXIifSwibmJmIjoxNzQxOTIxNjcwLCJjc3JmIjoiNTA1NWY3OGQtODYzNy00YWMyLWFkNTktNzYzZGIxOWUyNTgxIiwiZXhwIjoxNzQxOTIyNTcwfQ.artBlNQ4gM_Ru5mqJ6b_BQDc-GigeUnXGjDx2UZfrUM"
+}
