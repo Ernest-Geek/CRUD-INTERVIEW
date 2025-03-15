@@ -12,6 +12,20 @@ FEATURES
 Tech Stack
 * Backend: Flask(Python)
 * Database: MySQL
-* Authentication: Flask-JWT-Extended
+* Authentication: Flask-JWT-Extended(JsonWeb Token)
 * Password Security: bcrypt
 * Testing & Debugging: Postman
+
+API Endpoints Overview
+Authentication
+Method	Endpoint	Description
+POST	/register	Register a new user
+POST	/login	Login and get a JWT token
+
+User Management
+Method	Endpoint	        Description
+GET	    /users	            Get all users
+GET	    /users/<user_id>	Get a single user by ID
+PUT	    /users/<user_id>	Update user details
+DELETE	/users/<user_id>	Delete a user
+
